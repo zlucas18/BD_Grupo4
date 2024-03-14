@@ -1,0 +1,37 @@
+Create Database Empresa
+Use Empresa
+Create table Empleado(
+  id_empleado int primary key,
+  Primer_nombre varchar (30),
+  Primer_apellido varchar (30),
+  Segundo_apellido varchar (30),
+);
+Create table Departamento(
+  id_departamento int primary key,
+  tipo_departamento varchar (30)
+);
+Create table Proyecto(
+  id_proyecto int primary key,
+  tipo_proyecto varchar (30)
+);
+Create table Habilidad(
+  id_habilidad int primary key,
+  tipo_habilidad varchar (30)
+);
+Create table Empleado_habilidad(
+  id_empleado int,
+  id_habilidad int,
+  Foreign key (id_empleado) references Empleado(id_empleado),
+  Foreign key (id_habilidad) references Habilidad(id_habilidad)
+);
+Create table Empleado_proyecto(
+  id_empleado int,
+  id_proyecto int,
+  Foreign key (id_empleado) references Empleado(id_empleado),
+  Foreign key (id_proyecto) references Proyecto(id_proyecto)
+)
+Alter table Empleado
+Add id_departamento int not null;
+
+Alter table Empleado
+Add Foreign key (id_departamento) references Departamento(id_departamento);
