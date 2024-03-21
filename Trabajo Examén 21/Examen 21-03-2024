@@ -1,0 +1,45 @@
+Create Database Colegio;
+Use Colegio;
+
+Create table Alumno (
+  id_matricula int primary key,
+  Nombre varchar(30),
+  Apellido varchar(30),
+  id_carrera int, 
+  foreign key (id_carrera) References Carrera(id_carrera)
+)
+
+Create table Asignatura_(
+  NRC int primary key,
+  Asignatura varchar (30)
+)
+Create table Alumno_Asignatura(
+  id_matricula int,
+  NRC int,
+  Foreign key (id_matricula) references Alumno(id_matricula),
+  Foreign key (NRC) references Asignatura_(NRC)
+)
+Create table Carrera(
+  id_carrera int primary key,
+  nom varchar (30)
+)
+
+//Datos de las tablas
+
+Use Colegio
+Insert into Alumno values 
+  (1,'Daniela','Bohorquez',1),
+  (2,'Juan','Hernandez',1),
+  (3,'Juan','David',1);
+Insert into Carrera values
+  (1,'TINF'),
+  (2,'DER');
+Insert into Asignatura_ values
+  (123,'BD'),
+  (234,'PW'),
+  (237,'CAL');
+Insert into Alumno_Asignatura values
+  (1,123),
+  (1,234),
+  (1,237),
+  (2,123);
