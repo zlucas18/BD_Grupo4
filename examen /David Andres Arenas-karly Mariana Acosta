@@ -1,0 +1,185 @@
+CREATE TABLE Restaurantes (
+    id_rest INT PRIMARY KEY,
+    nombre VARCHAR(100),
+    dirección VARCHAR(100),
+    ciudad VARCHAR(50),
+    país VARCHAR(50),
+    teléfono VARCHAR(15),
+    horario_apertura TIME,
+    horario_cierre TIME,
+    imagen BIT
+);
+
+CREATE TABLE TiposCocina (
+    id_tipo INT PRIMARY KEY,
+    nombre VARCHAR(50),
+    descripción VARCHAR(200)
+);
+
+CREATE TABLE Menús (
+    id_menu INT PRIMARY KEY,
+    id_rest INT,
+    id_tipo INT,
+    FOREIGN KEY (id_rest) REFERENCES Restaurantes(id_rest),
+    FOREIGN KEY (id_tipo) REFERENCES TiposCocina(id_tipo)
+);
+
+CREATE TABLE Platos (
+    id_plato INT PRIMARY KEY,
+    id_menu INT,
+    nombre VARCHAR(50),
+    descripción VARCHAR(200),
+    precio DECIMAL(5,2),
+    FOREIGN KEY (id_menu) REFERENCES Menús(id_menu)
+);
+
+CREATE TABLE Clientes (
+    id_cliente INT PRIMARY KEY,
+    nombre VARCHAR(100),
+    dirección VARCHAR(100),
+    ciudad VARCHAR(50),
+    país VARCHAR(50),
+    teléfono VARCHAR(15),
+    correo VARCHAR(100)
+);
+
+CREATE TABLE Pedidos (
+    id_pedido INT PRIMARY KEY,
+    fecha DATE,
+    hora TIME,
+    tipo VARCHAR(50),
+    estado VARCHAR(50),
+    precio DECIMAL(5,2),
+    id_rest INT,
+    id_cliente INT,
+    FOREIGN KEY (id_rest) REFERENCES Restaurantes(id_rest),
+    FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente)
+);
+
+CREATE TABLE Reservas (
+    id_reserva INT PRIMARY KEY,
+    fecha DATE,
+    hora TIME,
+    num_personas INT,
+    id_rest INT,
+    id_cliente INT,
+    FOREIGN KEY (id_rest) REFERENCES Restaurantes(id_rest),
+    FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente)
+);
+
+
+INSERT INTO Restaurantes(id_rest,nombre,dirección,ciudad,país,teléfono,horario_apertura,horario_cierre,imagen) 
+VALUES (1, 'DONDE JUAN', 'CARRERA 80', 'MEDELLIN', 'COLOMBIA', '6043439503', '08:00:00', '22:00:00', NULL),
+       (2, 'MANDINGAS', 'CARRERA 70', 'MEDELLIN', 'COLOMBIA', '6045407089', '08:00:00', '22:00:00', NULL),
+	   (3, 'MIS CARNES', 'CARRERA 75', 'MEDELLIN', 'COLOMBIA', '6046894545', '08:00:00', '22:00:00', NULL),
+	   (4, 'MACNOLIA', 'CARRERA 45', 'BOGOTA', 'COLOMBIA', '6043092270', '08:00:00', '22:00:00', NULL),
+	   (5, 'DOMINOS', 'CALLE 33', 'MEDELLIN', 'COLOMBIA', '6044083456', '08:00:00', '22:00:00', NULL),
+	   (6, 'KFC', 'CARRERA 90', 'CARACAS', 'VENEZUELA', '6048037999', '08:00:00', '22:00:00', NULL),
+	   (7, 'LAS BLANCAS', 'CARRERA 22', 'SAN PAULO', 'BRAZIL', '604444444', '08:00:00', '22:00:00', NULL),
+	   (8, 'LA CANTERA', 'CALLE 4', 'MOSCU', 'RUSIA', '6046663940', '08:00:00', '22:00:00', NULL),
+	   (9, 'LAS INFANTAS', 'CALLE 66', 'VARSOVIA', 'POLONIA', '6852095566', '08:00:00', '22:00:00', NULL),
+	   (10, 'HOOPT', 'CALLE 70', 'OSLO', 'NORUEGA', '50347859393', '08:00:00', '22:00:00', NULL);
+
+
+INSERT INTO TiposCocina (id_tipo, nombre, descripción)
+VALUES 
+		(1, 'Colombiana', 'Comidas rápidas, caseras, arepas, bandeja paisa'),
+		(2, 'Venezolana', 'Arepa, pabellón criollo, hallacas, cachapas'),
+		(3, 'Brasileña', 'Feijoada, acarajé, vatapá, moqueca'),
+		(4, 'Rusa', 'Borsch, pelmeni, blini, ensalada Olivier'),
+		(5, 'Polaca', 'Pierogi, bigos, kielbasa, golabki'),
+		(6, 'Noruega', 'Rakfisk, lutefisk, klippfisk, fenalår'),
+		(7, 'Italiana', 'Pizza, pasta, risotto, tiramisú'),
+		(8, 'Francesa', 'Ratatouille, bouillabaisse, quiche, crème brûlée'),
+		(9, 'Japonesa', 'Sushi, ramen, tempura, udon'),
+		(10, 'Mexicana', 'Tacos, enchiladas, chiles en nogada, pozole');
+
+INSERT INTO Menús (id_menu,id_rest,id_tipo) 
+VALUES (1, 1, 1),
+       (2, 2, 2),
+	   (3, 3, 3),
+	   (4, 4, 4),
+	   (5, 5, 5),
+	   (6, 6, 6),
+	   (7, 7, 7),
+	   (8, 8, 8),
+	   (9, 9, 9),
+	   (10, 10, 10);
+
+INSERT INTO Platos (id_plato,id_menu,nombre,descripción,precio)
+VALUES (1, 1, 'PICADA', 'PAPAS, CARNDE DE CERDO POLLO Y RES, SALCHICHA, CHORIZO Y SALSAS', 30.50),
+       (2, 2, 'MEGA AREPA', 'AREPA, CARNE DESMECHADA, MAICITOS, QUEZO', 10.50),
+	   (3, 3, 'FRIJOLADA', 'FRIJOLES, TORTILLA, CHICHARRON', 26.50),
+	   (4, 4, 'ENSALAS VIRGEN', 'LECHUGA, TOMATE,VINADRETA, LIMON', 8.50),
+	   (5, 5, 'LANGOSTA', 'LANGOSTA EN SALSA DE LA CASA CON ARROS', 150.50),
+	   (6, 6, 'PITON EN HIERVAS', 'CARNE DE CERPIENTE EN FINAS HIERVA', 50.50),
+	   (7, 7, 'ESPAGUETIA', 'ESPAGUETIS EN SALSA NAPOLITANA ACOMPAÑANOS DE PAN', 23.50),
+	   (8, 8, 'Pizza TAILANDESA', 'Pizza con tomate, PEPERONI, mozzarella y TOMILLO', 15.50),
+	   (9, 9, 'RAMEN', 'SOPA DE MISO CON PASTAS, CARNE DE CERDO', 12.50),
+	   (10, 10, 'TACOS AL PASTOR', 'TORTILLA DE MAIZ, CARNE DE CERDO ADOBADA, PIÑA, CILANTRO, CEBOLLA', 4.50);
+
+INSERT INTO Clientes (id_cliente,nombre,dirección,ciudad,país,teléfono,correo)
+VALUES (1, 'JUAN JOSE PEREZ', 'Calle 58', 'MEDELLIN', 'COLOMBIA', '3002571139', 'JUAN.PEREZ@GMAIL.com'),
+       (2, 'SARA GUTIERREZ', 'Calle 10', 'CALI', 'COLOMBIA', '3022560074', 'SARA_MODEL@GMAIL.com'),
+	   (3, 'CAMILO ZAPATA', 'Calle 30', 'CARACAS', 'VENEZUELA', '3158622882', 'ZAPATA098@GMAIL.com'),
+	   (4, 'LUCAS MURILLO', 'Calle 9', 'SAN PAULO', 'BRAZIL', '6822851981', 'MURILLO52@GMAIL.com'),
+	   (5, 'JULIAN NASARIO ', 'AVENIDA 2', 'VARSOVIA', 'POLONIA', '5841644455', 'JULIAN764@GMAIL.com'),
+	   (6, 'PEDRO GOMEZ', 'CARRERA 70', 'MOSCU', 'RUSIA', '5255486688', 'PEDROGOMEZ@GMAIL.com'),
+	   (7, 'SANTIAGO SALASAR', 'CARRERA 90', 'OSLO', 'NORUEGA', '5256488294', 'SANTI_012@GMAIL.com'),
+	   (8, 'CAMILA HOYOS', 'CARRERA 20', 'BOGOTA', 'COLOMBIA', '6945824567', 'HOYOS.CAMILA@GMAIL.com'),
+	   (9,  'MARIANA CARDONA', 'CARRERA 33', 'MEDELLIN', 'COLOMBIA', '5257556222', 'MARIANA-MODEL@GMAIL.com'),
+	   (10, 'SOFIA NARANJO', 'CARRERA 44', 'MEDELLIN', 'COLOMBIA', '7869514265', 'SOFI.NARAN@GMAIL.com');
+       
+INSERT INTO Pedidos (id_cliente,fecha,hora,tipo,estado,precio,id_rest,id_pedido)
+VALUES (1, '2024-03-20', '14:28:45', 'Para llevar', 'ENTREGADO', 42.99, 1, 15),
+       (2, '2024-02-03', '10:20:03', 'Para consumir', 'ENTREGADO', 250.70, 2, 8),
+	   (3, '2024-01-15', '11:02:50', 'Para llevar', 'ENTREGADO', 60.50, 3, 1),
+	   (4, '2024-03-11', '18:50:19', 'Para llevar', 'ENTREGADO', 58.10, 4, 30),
+	   (5, '2024-01-03', '15:09:00', 'Para consumir', 'CANCELADO', 0.00, 5, 17),
+	   (6, '2024-04-07', '12:00:00', 'Para llevar', 'EN PREPARACION', 85.99, 6, 40),
+	   (7, '2024-02-24', '13:08:00', 'Para CONSUMIR', 'ENTREGADO', 506.99, 7, 20),
+	   (8, '2024-03-30', '13:30:55', 'Para llevar', 'CANCELADO', 99.99, 8, 50),
+	   (9, '2024-04-03', '20:00:00', 'Para Consumir', 'EN PREPARACION', 25.99, 9, 19),
+	   (10,'2024-04-05', '18:00:00', 'Para llevar', 'EN PREPARACION', 88.99, 10, 33);
+	   
+INSERT INTO Reservas (id_cliente,fecha,hora,num_personas,id_rest,id_reserva)
+VALUES (1, '2024-04-04', '11:00:00', 2, 1, 5),
+       (2, '2024-04-05', '12:00:00', 4, 2, 6),
+	   (3, '2024-04-06', '13:00:00', 6, 3, 7),
+	   (4, '2024-04-07', '14:00:00', 1, 4, 8),
+	   (5, '2024-04-08', '15:00:00', 4, 5, 9),
+	   (6, '2024-04-09', '16:00:00', 12, 6, 10),
+	   (7, '2024-04-10', '17:00:00', 2, 7, 11),
+	   (8, '2024-04-11', '18:00:00', 6, 8, 12),
+	   (9, '2024-04-12', '19:00:00', 4, 9, 13),
+	   (10, '2024-04-13', '20:00:00', 2, 10, 14);
+
+
+-- ¿Cuáles son los restaurantes que ofrecen cocina italiana?
+SELECT r.nombre
+FROM Restaurantes r
+JOIN Menús m ON r.id_rest = m.id_rest
+JOIN TiposCocina t ON m.id_tipo = t.id_tipo
+WHERE t.nombre = 'Italiana';
+
+-- ¿Cual es el precio del plato PIZZA TAILANDESA?
+
+SELECT p.precio
+FROM Restaurantes r
+JOIN Menús m ON r.id_rest = m.id_rest
+JOIN Platos p ON m.id_menu = p.id_menu
+WHERE p.nombre = 'PIZZA TAILANDESA';
+
+-- ¿Cual fue la fecha, hora, tipo, estado y precio de los pedidos realizados por el cliente SARA GUTIERREZ?
+
+SELECT pe.fecha, pe.hora, pe.tipo, pe.estado, pe.precio
+FROM Pedidos pe
+JOIN Clientes cl ON pe.id_cliente = cl.id_cliente
+WHERE cl.nombre = 'SARA GUTIERREZ';
+
+-- ¿Estado de las reservas para el restaurante MIS CARNES el día 2024-04-07?
+
+SELECT re.fecha, re.hora, re.num_personas
+FROM Reservas re
+WHERE re.id_rest = (SELECT id_rest FROM Restaurantes WHERE nombre = 'MIS CARNES')
+AND re.fecha = '2024-04-07';
