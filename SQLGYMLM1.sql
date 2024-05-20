@@ -51,9 +51,9 @@ CREATE TABLE Actividades
 
 
 INSERT INTO Actividades (Id_Actividad, NombreActividad, TipoActividad) VALUES
-(001, 'Cinta de correr', 'Actividades AerÛbicas'),
-(002, 'Bicicleta ElÌptica', 'Actividades AerÛbicas'),
-(003, 'Bicicleta Est·tica', 'Actividades AerÛbicas'),
+(001, 'Cinta de correr', 'Actividades Aer√≥bicas'),
+(002, 'Bicicleta El√≠ptica', 'Actividades Aer√≥bicas'),
+(003, 'Bicicleta Est√°tica', 'Actividades Aer√≥bicas'),
 (004, 'Pilates', 'Fortalecimiento Muscular'),
 (005, 'Sentadillas', 'Fortalecimiento Muscular'),
 (005, 'Lagartijas', 'Fortalecimiento Muscular');
@@ -76,7 +76,7 @@ CREATE TABLE CalificacionYCom
 	Coment Varchar (100)
 );
 
---RadioButton: OpciÛn 1: Me gustÛ. OpciÛn 2: No me gustÛ. OpciÛn 3: PodrÌa Mejorar.
+--RadioButton: Opci√≥n 1: Me gust√≥. Opci√≥n 2: No me gust√≥. Opci√≥n 3: Podr√≠a Mejorar.
 
 -- Procedimiento Almacenado para buscar las actividades que se encuentran en el gimnasio por Tipo de actividad
 CREATE PROC SP_Consulta_Actividad
